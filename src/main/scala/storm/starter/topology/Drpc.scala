@@ -5,7 +5,8 @@ import backtype.storm.testing.TestWordSpout
 import backtype.storm.topology.TopologyBuilder
 import backtype.storm.utils.Utils
 import backtype.storm.drpc.LinearDRPCTopologyBuilder
-import storm.starter.bolt.BasicExclamationBolt
+import storm.starter.bolt.{AggregatorBolt, TextSplitterBolt, BasicExclamationBolt}
+import backtype.storm.tuple.Fields
 
 object Drpc {
     def main(args: Array[String]) {
@@ -32,7 +33,10 @@ object Drpc {
             val drpc = new LocalDRPC()
             val cluster: LocalCluster = new LocalCluster()
 
+            builder.addBolt(new TextSplitterBolt(), 2)
             builder.addBolt(new BasicExclamationBolt(), 3)
+                .fieldsGrouping(new Fields("id"))
+            builder.addBolt(new AggregatorBolt()).fieldsGrouping(new Fields("id"))
 //                .shuffleGrouping("word")
 
             cluster.submitTopology("ExclamationTopology", config, builder.createLocalTopology(drpc))
