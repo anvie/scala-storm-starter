@@ -8,6 +8,8 @@ version := "0.0.2-SNAPSHOT"
 
 scalaVersion := "2.9.2"
 
+scalacOptions += "-Yresolve-term-conflict:package"
+
 fork in run := true
 
 resolvers ++= Seq(
@@ -23,9 +25,13 @@ libraryDependencies ++= Seq(
   "org.specs2" %% "specs2" % "1.11" % "test"
 )
 
-mainClass in Compile := Some("storm.starter.topology.ExclamationTopology")
+//mainClass in Compile := Some("storm.starter.topology.ExclamationTopology")
 
-mainClass in assembly := Some("storm.starter.topology.ExclamationTopology")
+mainClass in Compile := Some("storm.starter.topology.Drpc")
+
+//mainClass in assembly := Some("storm.starter.topology.ExclamationTopology")
+
+mainClass in assembly := Some("storm.starter.topology.Drpc")
 
 TaskKey[File]("generate-storm") <<= (baseDirectory, fullClasspath in Compile, mainClass in Compile) map { (base, cp, main) =>
   val template = """#!/bin/sh
