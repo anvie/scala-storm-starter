@@ -12,8 +12,11 @@ object DrpcClient {
 
         val drpc = new DRPCClient("localhost", 3772)
 
-        val rv = drpc.execute("exclamation", "hello robin is here")
-        println("rv: " + rv)
+        val rv1 = drpc.execute("exclamation", "hello robin is here")
+        println("rv1: " + rv1)
+
+        val rv2 = drpc.execute("words", "hello robin is here, robin sy.")
+        println("rv2: " + rv2)
 
     }
 }

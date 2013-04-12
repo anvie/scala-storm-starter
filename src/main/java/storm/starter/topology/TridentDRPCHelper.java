@@ -22,8 +22,8 @@ public class TridentDRPCHelper {
     private TridentDRPCHelper() {
     }
 
-    public Stream createStream(TridentTopology topology, LocalDRPC drpc, TridentState state){
-        return topology.newDRPCStream("words", drpc)
+    public Stream createStream(String name, TridentTopology topology, LocalDRPC drpc, TridentState state){
+        return topology.newDRPCStream(name, drpc)
                 .each(new Fields("args"), new Trident.Split(), new Fields("word"))
                 .groupBy(new Fields("word"))
 //                .stateQuery(state, new Fields("word"), new MapGet(), new Fields("count"))

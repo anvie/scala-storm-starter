@@ -27,15 +27,17 @@ libraryDependencies ++= Seq(
 
 //mainClass in Compile := Some("storm.starter.topology.ExclamationTopology")
 
-//mainClass in Compile := Some("storm.starter.topology.DrpcClient")
+mainClass in Compile := Some("storm.starter.topology.DrpcClient")
 
-mainClass in Compile := Some("storm.starter.topology.Trident")
+//mainClass in Compile := Some("storm.starter.topology.Trident")
 
 //mainClass in Compile := Some("storm.starter.topology.Drpc")
 
 //mainClass in assembly := Some("storm.starter.topology.ExclamationTopology")
 
-mainClass in assembly := Some("storm.starter.topology.Drpc")
+//mainClass in assembly := Some("storm.starter.topology.Drpc")
+
+mainClass in assembly := Some("storm.starter.topology.Trident")
 
 TaskKey[File]("generate-storm") <<= (baseDirectory, fullClasspath in Compile, mainClass in Compile) map { (base, cp, main) =>
   val template = """#!/bin/sh

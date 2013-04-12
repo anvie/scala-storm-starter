@@ -44,7 +44,7 @@ object Trident {
             .persistentAggregate(new MemoryMapState.Factory, new Count(), new Fields("count"))
             .parallelismHint(16)
 
-        TridentDRPCHelper.getInstance().createStream(trident, drpc, wordCounts)
+        TridentDRPCHelper.getInstance().createStream("words", trident, drpc, wordCounts)
 
         trident.build()
     }
